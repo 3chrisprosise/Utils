@@ -28,7 +28,29 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
 
+
+
+class Publication(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=30)
+    def __unicode__(self):
+        return self.title
+    class Mata:
+        ordering = ('title',)
+
+class Article1(models.Model):
+    id = models.AutoField(primary_key=True)
+    headline = models.CharField(max_length=100)
+    publications = models.ManyToManyField(Publication)
+
+    def __unicode__(self):
+        return self.headline
+    class Mata:
+        ordering = ('headline',)
+
 admin.site.register(Article)
 admin.site.register(Reporter)
 admin.site.register(Choice)
 admin.site.register(Question)
+admin.site.register(Article1)
+admin.site.register(Publication)

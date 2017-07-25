@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, Http404, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext, loader
-from .models import Article, Question
+from .models import Article, Question,Article1,Publication
 # Create your views here.
 
 
@@ -42,3 +42,11 @@ def results(req, question_id):
 def vote(req, question_id):
     if req.method == "GET":
         return HttpResponse("your question_id is %s" % question_id)
+
+def GetPublication(req, Pub):
+    if req.method == "GET":
+        try:
+            T = Pub.Article1.all()
+            print T
+        except:
+            return Http404
