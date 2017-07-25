@@ -50,3 +50,8 @@ def GetPublication(req, Pub):
             print T
         except:
             return Http404
+'''
+测试js
+'''
+def testjs(req):
+    return render(req, 'testjs.html')
