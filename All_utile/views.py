@@ -55,3 +55,9 @@ def GetPublication(req, Pub):
 '''
 def testjs(req):
     return render(req, 'testjs.html')
+
+def jsdate(req):
+    if req.method == "GET":
+        return render(req, 'Date.html')
+    if req.method == "POST":
+        pass
