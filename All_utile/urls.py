@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'articles/([0-9]{4})/([0-9]{2})/([0-9]+)/$', views.dat_archive),
     url(r'testjs$', views.testjs),
     url(r'test_date', views.jsdate),
+    url(r'selector', views.selector),
 
 ]

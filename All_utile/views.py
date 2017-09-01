@@ -61,3 +61,11 @@ def jsdate(req):
         return render(req, 'Date.html')
     if req.method == "POST":
         pass
+
+def selector(req):
+    if req.method == "GET":
+        return render(req, 'selsctor.html')
+    elif req.method == "POST":
+        pass
+    else:
+        pass
