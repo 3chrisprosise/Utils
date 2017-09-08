@@ -27,5 +27,9 @@ urlpatterns = [
     url(r'testjs$', views.testjs),
     url(r'test_date', views.jsdate),
     url(r'selector', views.selector),
+    url(r'changeHtml', views.changehtml),
+    url(r'img_check$', views.imgcheck),
+
+
 
 ]

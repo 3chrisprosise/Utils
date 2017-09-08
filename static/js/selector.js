@@ -39,6 +39,6 @@ var itemlen = items.length;
 
 // //获取文本节点，可以根据nodeType是否为1 来判断是否为元素节点，否则跳过
 // var item = document.getElementById('firstlul');
-// var text = item.firstChild.nextSibling.firstChild.nodeValue;
+// var text = item.firstChild.nextSibling.firstChild.nodeValue;// 只能获得节点的text值
 // alert(text); //注意文本本身也是节点，同样和上层属于父子关系
 

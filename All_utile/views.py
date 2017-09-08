@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
-from django.shortcuts import render, Http404, HttpResponse
+import base64
+from django.shortcuts import render, Http404, HttpResponse,render_to_response
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext, loader
 from .models import Article, Question,Article1,Publication
+from Img_util.imgVerification import generate_verify_image
+
 # Create your views here.
 
 
@@ -14,6 +16,7 @@ def year_archive(req,year):
 
 '''
     简化查询步骤
+    可以在对 对象细致查询时使用
 '''
 def month_archive(req,month):
     obj = get_object_or_404(id='fit')
@@ -69,3 +72,16 @@ def selector(req):
         pass
     else:
         pass
+
+
+def changehtml(req):
+    if req.method == "GET":
+        return render(req, 'changeHtml.html')
+    else:
+        pass
+
+def imgcheck(req):
+    if req.method == "GET":
+        stream, strs = generate_verify_image(save_img=False)
+        stream = base64.b64encode(stream.getvalue()).encode('ascii')
+        return render_to_response('img_check.html', {'img': stream})
