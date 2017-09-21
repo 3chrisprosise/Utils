@@ -28,8 +28,8 @@ def index(req):
         latest_question_list = Question.objects.order_by('-pub_date')[:5]
         context = {'latest_question_list': latest_question_list}
         return render(req, 'index.html', context)
-    if req.method == "POST":
-        return Http404
+    # if req.method == "POST":
+    #     return Http404
 
 def detail(req, question_id):
     if req.method == "GET":
