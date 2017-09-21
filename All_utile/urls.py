@@ -24,5 +24,15 @@ urlpatterns = [
     url(r'articles/([0-9]{4})/$', views.year_archive),
     url(r'articles/([0-9]{4})/([0-9]{2})/$', views.month_archive),
     url(r'articles/([0-9]{4})/([0-9]{2})/([0-9]+)/$', views.dat_archive),
+
     url(r'testjs1$', views.testjs),
+
+    url(r'testjs$', views.testjs),
+    url(r'test_date', views.jsdate),
+    url(r'selector', views.selector),
+    url(r'changeHtml', views.changehtml),
+    url(r'img_check$', views.imgcheck),
+
+
+
 ]
