@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from All_utile import views as views
 urlpatterns = [
-    # url(r'$', views.index),
+    url(r'$', views.index),
     # url(r'(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
     # url(r'(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
     url(r'(?P<Pub>)/$', views.GetPublication),

@@ -85,3 +85,6 @@ def imgcheck(req):
         stream, strs = generate_verify_image(save_img=False)
         stream = base64.b64encode(stream.getvalue()).encode('ascii')
         return render_to_response('img_check.html', {'img': stream})
+def get_str(req):
+    str = Question.question_text
+    return render_to_response('index.html',{'str':str})
