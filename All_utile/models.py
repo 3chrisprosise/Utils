@@ -94,5 +94,6 @@ class DateModel(models.Model):
     DateTime = models.DateTimeField(auto_now_add=True,null=True)
     Date = models.DateField(auto_now_add=True,null=True)
     Time = models.TimeField(auto_now_add=True,null=True)
+
     def __str__(self):
         return 'D: '+str(self.Date) + ' DT: '+str(self.DateTime) + ' T: ' + str(self.Time)
