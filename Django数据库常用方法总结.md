@@ -172,31 +172,84 @@
 
    ######或者
    
-    blog = Blog.objects.get(author__name="Joe")
-   
+    blog = Blog.objects.get(author__name="Joe") # 注意在用get查询数据库时候可能会抛出对象不存在的异常
+
    ######注意两者区别,<font color=#ff0000 size=4>以及</font>
-   
+
     blogs = Blog.objects.exclude(author__name="Joe")
-   
+
    2.无条件获取全部
-   
+
     entrys = Entry.objects.all()
    3.排序查询
-   
+
     entrys =  Entry.objects.order_by('headline').filter()
-    
+
   4.取一部分数据
-  
+
     entrys = Entry.objects.all()[5:10]
     entrys = Entry.objects.all()[5:10:2]
 
   5.去除重复值
-  
+
     distinct()
-    
+
   6.获取具体内容项
-  
+
     Blog.objects.filter(name__startswith='Beatles').values()
 
-        
-        
+  7.count()
+
+    统计查询项的数目
+####filter() 常用附加参数
+1.exact
+
+    Entry.objects.get(headline__exact="Man bites dog")
+    功能上完全等于：
+    Entry.objects.get(headline="Man bites dog")
+    那么为什么要出现这个？
+    Entry.objects.get(headline__iexact="Man bites dog") # 大小写的区分
+2.contains
+
+    Entry.objects.get(headline__contains='Lennon') #包含
+    Entry.objects.get(headline__icontains='Lennon') # 包含且不区分大小写
+3.gt, gte, lt,  lte 比较符号
+
+    Entry.objects.get(id__gt=1) # 四个参数分别对应了 大于，大于等于，小于，小于等于，小于
+
+4.开头和结尾的匹配
+
+       __startswith   以  开头
+      __istartswith   以   开头，且忽略大小写
+      __endswith      以   结尾
+      __iendswith     以   结尾，忽略大小写
+
+      Entry.objects.get(Name__startswith='Le')
+      Entry.objects.get(Name__startswith='Le')
+      Entry.objects.get(Name__startswith='Le')
+      Entry.objects.get(Name__startswith='Le')
+5.range 匹配范围
+
+    You can use range anywhere you can use BETWEEN in SQL for dates, numbers, and even characters
+
+    Entry.objects.filter(id__range=(2,10))
+
+    匹配字符，数字，日期 日期比较难 后面再讲
+6.isnull 判断
+
+    Entry.objects.filter(pub_date__isnull=True)
+
+    选择某项属性为空的所有数据项
+7.Q 联合条件查询
+
+    Poll.objects.get(
+
+    Q(pub_date=date(2005, 5, 2)) | Q(pub_date=date(2005, 5, 6)),
+
+    question__startswith='Who')
+
+    联合查询条件
+####外键查询
+1.外键属性查询
+
+    Entry.objects.filter(blog__name__exact='Beatles Blog')
