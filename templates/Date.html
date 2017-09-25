@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+    {% for Date in Dates%}
+        <h5>{{ Date }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+    {% endfor %}
+
+    {% for id in ids %}
+        <h5>{{ id }}</h5>
+    {% endfor %}
 <body>
-<script src="../static/js/jquery-1.10.1.min.js" type="text/javascript" ></script>
-<script src="../static/js/date_js.js" type="text/javascript" ></script>
+{#<script src="../static/js/jquery-1.10.1.min.js" type="text/javascript" ></script>#}
+{#<script src="../static/js/date_js.js" type="text/javascript" ></script>#}
 </body>
 </html>

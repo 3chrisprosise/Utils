@@ -5,9 +5,9 @@ import base64
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 try:
-    import cStringIO as StringIO
+    from StringIO import StringIO
 except ImportError:
-    import StringIO
+    from io import StringIO
 
 _letter_cases = "abcdefghjkmnpqrstuvwxy"  # 小写字母
 _upper_cases = "ABCDEFGHJKLMNPQRSTUVWXY"  # 大写字母

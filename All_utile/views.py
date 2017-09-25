@@ -5,8 +5,10 @@ from django.shortcuts import render, Http404, HttpResponse,render_to_response
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext, loader
 from .models import Article, Question,Article1,Publication
-from Img_util.imgVerification import generate_verify_image
-
+from All_utile.Img_util.imgVerification import generate_verify_image
+from All_utile import models
+import datetime
+from django.db.models import Q,F
 # Create your views here.
 
 
@@ -31,8 +33,8 @@ def index(req):
         latest_question_list = Question.objects.order_by('-pub_date')[:5]
         context = {'latest_question_list': latest_question_list}
         return render(req, 'index.html', context)
-    if req.method == "POST":
-        return Http404
+    # if req.method == "POST":
+    #     return Http404
 
 def detail(req, question_id):
     if req.method == "GET":
@@ -50,7 +52,7 @@ def GetPublication(req, Pub):
     if req.method == "GET":
         try:
             T = Pub.Article1.all()
-            print T
+            print(T)
         except:
             return Http404
 '''
@@ -88,3 +90,33 @@ def imgcheck(req):
 def get_str(req):
     str = Question.question_text
     return render_to_response('index.html',{'str':str})
+
+
+
+
+
+
+
+
+
+
+
+# 周4 课程
+'''
+1. models 中的各种字段
+'''
+
+def CreatDate(req):
+    # print(datetime.date.today())
+    new_date = models.DateModel.objects.create()
+    # Dates = models.DateModel.objects.all()[:5]
+    # Dates = models.DateModel.objects.all()[5:10]
+    # Dates = models.DateModel.objects.all()[:10:2]
+    Dates = models.DateModel.objects.all().order_by("-id")[:5]
+    ids = models.DateModel.objects.all().order_by("-id")[:5].values('id')
+    return render_to_response('Date.html', {"Dates": Dates, "ids": ids})
+
+
+# 利用Q  ☞  Query  以及 F ☞ Find and Get Value
+def Query_set(req):
+    auther = models.Author.objects.filter()
