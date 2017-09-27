@@ -1,6 +1,55 @@
 # Django 数据库知识总结
 ------------------------------
 ###1.数据库字段
+
+    from django.db import models
+    
+     
+    class Blog(models.Model):
+    
+        name = models.CharField(max_length=100)
+    
+        tagline = models.TextField()
+    
+     
+        def __str__(self):
+    
+            return self.name
+    
+     
+    
+    class Author(models.Model):
+    
+        name = models.CharField(max_length=50)
+    
+        email = models.EmailField()
+    
+     
+    
+        def __str__(self):
+    
+            return self.name
+            
+     
+    class Entry(models.Model):
+    
+    
+        blog = models.ForeignKey(Blog)
+    
+        headline = models.CharField(max_length=255)
+    
+        body_text = models.TextField()
+    
+        pub_date = models.DateTimeField()
+    
+        authors = models.ManyToManyField(Author)
+        
+    
+        def __str__(self):
+    
+            return self.headline
+
+--------------------------------------
 1. AutoField
 
         指一个能够根据可用ID自增的 IntegerField 。通常你不用直接使用它，如果你没有指定主键的话，系统会自动在你的模型中加入这样的主键。
@@ -154,12 +203,21 @@
 9. \_\_str__()
         
         一种神奇的方法，当你在调用它的时候，会显示这个函数的返回值
+        
+10. primary_key
+
+        定义数据项为主键，字段不可为空，且不可重
+     
+     
 数据增删改查
 ---------------------------------------
 ####1. 创建
 
     b2 = Blog(name='Cheddar Talk', tagline='Thoughts on cheese.')
     b2.save()
+    
+    # 删除记录
+    b2.delete()
 
    ######或者
    
@@ -184,6 +242,8 @@
    3.排序查询
 
     entrys =  Entry.objects.order_by('headline').filter()
+    
+    这里的orderby可以添加多条件，并且以条件的顺序作为查询的顺序依据
 
   4.取一部分数据
 
@@ -201,55 +261,178 @@
   7.count()
 
     统计查询项的数目
+    
+    >>> Entry.objects.filter(headline__contains='Lennon').count()
+  8. update() 更改字段属性 
+  
+    注意 update() 调用时 
+    
+    如果是较为简单的数据库字段更改操作，可以利用 F() 表达式实现 
 ####filter() 常用附加参数
-1.exact
+1. exact
+    
+        Entry.objects.get(headline__exact="Man bites dog")
+        
+        功能上完全等于：
+        
+        Entry.objects.get(headline="Man bites dog")
+        
+        那么为什么要出现这个？
+        
+        Entry.objects.get(headline__iexact="Man bites dog") # 大小写的区分
+        
+        另外还有一些省略的语句，例如 
+        
+        pk = primiary_key
+        
+2. contains
 
-    Entry.objects.get(headline__exact="Man bites dog")
-    功能上完全等于：
-    Entry.objects.get(headline="Man bites dog")
-    那么为什么要出现这个？
-    Entry.objects.get(headline__iexact="Man bites dog") # 大小写的区分
-2.contains
+        Entry.objects.get(headline__contains='Lennon') #包含
+        Entry.objects.get(headline__icontains='Lennon') # 包含且不区分大小写
+    
+3. gt, gte, lt,  lte 比较符号
 
-    Entry.objects.get(headline__contains='Lennon') #包含
-    Entry.objects.get(headline__icontains='Lennon') # 包含且不区分大小写
-3.gt, gte, lt,  lte 比较符号
+        Entry.objects.get(id__gt=1) # 四个参数分别对应了 大于，大于等于，小于，小于等于，小于
 
-    Entry.objects.get(id__gt=1) # 四个参数分别对应了 大于，大于等于，小于，小于等于，小于
+4. 开头和结尾的匹配
 
-4.开头和结尾的匹配
+          __startswith   以  开头
+          __istartswith   以   开头，且忽略大小写
+          __endswith      以   结尾
+          __iendswith     以   结尾，忽略大小写
+    
+          Entry.objects.get(Name__startswith='Le')
+          Entry.objects.get(Name__startswith='Le')
+          Entry.objects.get(Name__startswith='Le')
+          Entry.objects.get(Name__startswith='Le')
+5. range 匹配范围
 
-       __startswith   以  开头
-      __istartswith   以   开头，且忽略大小写
-      __endswith      以   结尾
-      __iendswith     以   结尾，忽略大小写
+        You can use range anywhere you can use BETWEEN in SQL for dates, numbers, and even characters
+    
+        Entry.objects.filter(id__range=(2,10))
+    
+        匹配字符，数字，日期 日期比较难 后面再讲
+        
+6. isnull 判断
 
-      Entry.objects.get(Name__startswith='Le')
-      Entry.objects.get(Name__startswith='Le')
-      Entry.objects.get(Name__startswith='Le')
-      Entry.objects.get(Name__startswith='Le')
-5.range 匹配范围
+        Entry.objects.filter(pub_date__isnull=True)
+    
+        选择某项属性为空的所有数据项
+7. Q 联合条件查询
 
-    You can use range anywhere you can use BETWEEN in SQL for dates, numbers, and even characters
+        Poll.objects.get(
+    
+        Q(pub_date=date(2005, 5, 2)) | Q(pub_date=date(2005, 5, 6)),
+    
+        question__startswith='Who')
+    
+        联合查询条件
+        
+        在Q之前加上 ~ 表示否定，例如
+        
+        oll.objects.get(
+    
+        Q(pub_date=date(2005, 5, 2)) | ~Q(pub_date=date(2005, 5, 6)),
+    
+        question__startswith='Who')
+        
+8. 日期格式化提取 dates(field, kind, order)
+    
+        Entry.objects.dates('pub_date', 'month')
+    
+        [datetime.datetime(2005, 2, 1), datetime.datetime(2005, 3, 1)]
+    
 
-    Entry.objects.filter(id__range=(2,10))
+#### <font color=#ff0000 size=4> 外键查询</font>
 
-    匹配字符，数字，日期 日期比较难 后面再讲
-6.isnull 判断
+1. 外键属性查询
 
-    Entry.objects.filter(pub_date__isnull=True)
+        Entry.objects.filter(blog__name__exact='Beatles Blog')
+        
+        如果一个 ForeignKey 字段设置了 null=True 选项（允许 NULL 值）时，你可以将 None 赋给它
+        
+    
+2. 缓存查询 selsct_related()
 
-    选择某项属性为空的所有数据项
-7.Q 联合条件查询
+        在包含外键的查询中
 
-    Poll.objects.get(
+3. 指定sql语句查询
 
-    Q(pub_date=date(2005, 5, 2)) | Q(pub_date=date(2005, 5, 6)),
+        >>> subq = 'SELECT COUNT(*) FROM blog_entry WHERE blog_entry.blog_id = blog_blog.id'
+    
+        >>> Blog.objects.extra(select={'entry_count': subq})
+        
+        >>> Entry.objects.extra(where=['id IN (3, 4, 5, 20)'])
+        
+        当需要指定参数时
+        
+        >>> Entry.objects.extra(where=['headline=%s'], params=['Lennon'])
 
-    question__startswith='Who')
 
-    联合查询条件
-####外键查询
-1.外键属性查询
+4. in_bulk(id_list) 根据提供的 id list 查询 <font color=#ff0000 size=4> 可以迅速返回对象？</font>
 
-    Entry.objects.filter(blog__name__exact='Beatles Blog')
+       >>> Blog.objects.in_bulk([1, 2])  
+       
+        获取主键值列表，并返回将每个主键值映射到具有给定ID的对象实例的字典
+        
+       >>> {1: Beatles Blog, 2: Cheddar Talk}
+5. 获取最新 latest(field_name=None)
+
+       >>> Entry.objects.latest('pub_date')
+       
+####<font color=#ff0000 size=4>反向外键查询</font>
+
+1. 反向查询格式 
+    
+       被索引的关系模型可以访问所有参照它的模型的实例，如
+       Entry.blog 作为 Blog 的外键，
+       默认情况下 Blog.entry_set 是包含所有参照 Blog 的 Entry 示例的查询集,
+       可以使用查询集API取出相应的实例。
+       
+       >>> b = Blog.objects.get(id=1)  # 确定一个 Blog 实体
+       
+       >>> b.entry_set.all()  # 获取所有外键中包含 b 的 Entry 的集合 最终获取的是 Entry 的实例 
+       
+       之前的数据库字段定义为：
+       
+       class Entry(models.Model):
+        
+             blog = models.ForeignKey(Blog)
+        
+        
+
+2. 反向查询依然可以包含筛选
+
+        >>> b.entries.filter(headline__contains='Lennon')
+
+        >>> b.entries.count()
+
+3. 同样在反向查询时也可以添加数据项  add(obj1, obj2, ...)
+
+        >>> b = Blog.objects.get(id=1)
+
+        >>> e = Entry.objects.get(id=234)
+        
+        >>> b.entry_set.add(e) # Associates Entry e with Blog b.
+
+4. 删除关联
+
+        >>> b = Blog.objects.get(id=1)
+
+        >>> e = Entry.objects.get(id=234)
+        
+        >>> b.entry_set.remove(e) # 这里仅仅是删除了数据之间的关联
+        
+        
+        同时也可以删除所有关联 :
+        
+        
+        >>> b = Blog.objects.get(id=1)
+
+        b.entry_set.clear()
+        
+        
+        ！！！！注意 ： 这两个字段只能用于 字段   null = True 的情况
+
+### 多对多关系
+1. 多对多关系一般用外键 + 额外表 的 方式实现
