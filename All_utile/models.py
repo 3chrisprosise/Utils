@@ -97,3 +97,6 @@ class DateModel(models.Model):
 
     def __str__(self):
         return 'D: '+str(self.Date) + ' DT: '+str(self.DateTime) + ' T: ' + str(self.Time)
+
+class RichText(models.Model):
+    TextHtml = models.TextField
