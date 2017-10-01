@@ -17,7 +17,18 @@ from django.conf.urls import url
 from django.conf.urls import include
 from django.contrib import admin
 
+from Utils.settings import MEDIA_ROOT
+from django.views.static import serve
+import ckeditor
+from All_utile import views as All_views
+from django.conf.urls.static import static
+import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^all/', include('All_utile.urls')),
-]
+
+    url(r'^media/(?P<path>.*)$',  serve, {"document_root": MEDIA_ROOT}),
+    url(r'^editor$',All_views.Ckeditor),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

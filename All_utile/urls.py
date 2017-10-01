@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 """Utils URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -33,7 +35,7 @@ urlpatterns = [
     # url(r'changeHtml', views.changehtml),
     # url(r'img_check$', views.imgcheck),
 
-    # 周四用
-    url(r'^Date$', views.CreatDate)
+    #
+    # url(r'^Date$', views.CreatDate)
 
 ]
