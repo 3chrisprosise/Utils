@@ -69,29 +69,29 @@ var str = 'http://127.0.0.1:8000/all/testjs';
 // alert(change);
 
 //数字操作
-var num = 3.141592653589;
-
-// //取整
-// alert(Math.ceil(num));//上取整
-// alert(Math.floor(num));//下取整
-// alert(Math.round(num));//近似
-
-// //随即数
-// num = Math.random();//[0,1)范围的随机数
-// alert(num);
-// $(document).ready(function () {
-//     alert("ok")
-// });
-function say(age, gender){console.log("My name is " + this.name + ",I'm a " + age + " years old " + gender + ".")}
-
-<<<<<<< HEAD
-say.apply({name:"cup"}, [12, "boy"])  ;         //打印结果为 My name is cup,I'm a 12 years old boy.
-// this.name = "cup", age = 12, gender = "boy"  作为第二个参数的数组中的元素都是函数say的参数，按顺序依次对应
-
-say.call({name:"cup"}, 12, "boy")       ;         //打印结果为 My name is cup,I'm a 12 years old boy.
+// var num = 3.141592653589;
+//
+// // //取整
+// // alert(Math.ceil(num));//上取整
+// // alert(Math.floor(num));//下取整
+// // alert(Math.round(num));//近似
+//
+// // //随即数
+// // num = Math.random();//[0,1)范围的随机数
+// // alert(num);
+// // $(document).ready(function () {
+// //     alert("ok")
+// // });
+// function say(age, gender){console.log("My name is " + this.name + ",I'm a " + age + " years old " + gender + ".")}
+//
+//
+// say.apply({name:"cup"}, [12, "boy"])  ;         //打印结果为 My name is cup,I'm a 12 years old boy.
+// // this.name = "cup", age = 12, gender = "boy"  作为第二个参数的数组中的元素都是函数say的参数，按顺序依次对应
+//
+// say.call({name:"cup"}, 12, "boy")       ;         //打印结果为 My name is cup,I'm a 12 years old boy.
 // this.name = "cup", age = 12, gender = "boy"  从第二个参数起的参数都是函数say的参数，按顺序依次对应
 //apply 和call 的参数传递方式不同
-=======
+
 // //创建数组
 //
 // var colors = new Array('WHITE', 'BLUE', 'YELLOW');
@@ -205,4 +205,13 @@ say.call({name:"cup"}, 12, "boy")       ;         //打印结果为 My name is c
 
 
 
->>>>>>> 29e0e6ad775366afd790dd8b3edfc30ae5f407a6
+// javascript 对象
+function Robot(Name){
+    this.name  = Name;
+    this.say = function () {
+        console.log(this.name)
+    }
+}
+
+Robot.prototype.age = 24;
+
