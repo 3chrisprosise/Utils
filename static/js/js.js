@@ -205,13 +205,142 @@ var str = 'http://127.0.0.1:8000/all/testjs';
 
 
 
-// javascript 对象
-function Robot(Name){
-    this.name  = Name;
-    this.say = function () {
-        console.log(this.name)
-    }
-}
+// // javascript 对象
+// function Robot(Name){
+//     this.name  = Name;
+//     this.say = function () {
+//         console.log(this.name)
+//     }
+// }
+//
+// Robot.prototype.age = 24;  //更改了原对象的属性值
 
-Robot.prototype.age = 24;
 
+// // 数组 堆性质的表现 后进先出
+// var color = new Array();
+// var count = color.push("red","green");
+//
+//
+// count = color.push("black");
+// alert(count); //3
+// var item = color.pop();
+//
+// alert(item); //2
+//
+// alert(color.length);
+//
+
+// 数组 栈 性质的表现    先进先出
+
+
+// var color = new Array();
+// var count = color.unshift("red","green");  //
+// alert(count);
+//
+// count = color.unshift("black");
+// alert(count); //3
+// var item = color.pop();
+//
+// alert(item); //2
+//
+// alert(color.length);
+
+// var value = [1,2,3,4,5,6];
+// value.reverse();
+// alert(value);   //  内容倒置
+
+
+// // 自定排序方式
+// function compare(val1,val2) {
+//     if(val1 < val2){
+//         return -1;
+//     }else if(val2 < val1){
+//         return 1;
+//     }else return 0;
+// }
+// var values = [0,1,5,10,15,3,6,2];
+// values.sort(compare); // 传入之前定义的函数 注意之前函数值的返回值，代表了不同的排序方式
+// alert(values);
+
+// var colors = ["red", "black", "green"];
+// var colrs2 = colors.concat(["yellow"], ["black","brown"]);  //  复制并且新加入了值
+// alert(colrs2);
+
+// var colors = ["red", "black", "green", "yellow","black","brown" ];
+// var color2 = colors.slice(1);  // 1- end 位置
+// var color3 = colors.slice(1,4); // 1-3  不包括4
+// alert(color2);
+// alert(color3);
+
+// 使用splice 插入 项
+// var colors = ["red", "black", "green", "yellow","black","brown" ];
+// var color2 = colors.splice(0,2);  // 删除数组的前两项，不包含2 ，返回值为删除的项
+// alert(colors);
+// var color3 = colors.splice(0,2,"bbb","cccc"); // 将删除的两项进行了替换
+// alert(colors);
+// var color4 = colors.splice(2,0,"zzz","zzzz");  // splice第一个参数为开始位置，第二个参数为删除数量，剩下的参数为插入项
+//
+// alert(colors);
+
+// 位置方法， indexOf 和lastindexOf
+
+// var url = 'http://127.0.0.1:8000/all/testjs';
+// alert(url.lastIndexOf('/')); // 从末尾开始查询
+// alert(url.indexOf('/')); // 从开头开始查询
+// //  字符串被看作是一个数组
+
+// 数组迭代方法
+
+
+// var arr = new Array();
+// arr = [1,2,3,4,5,6,7,8,9,10];
+// var result = arr.every(function (t, number, ts) { return t>2; }) ;
+// result = arr.some(function (t, number, ts) { return t>2; }) ;
+// result = arr.filter(function (t) {
+//      return t > 5;
+//  });  // 这里返回的是满足条件的元素组成的新的数组
+// result = arr.map(function (t) {
+//     return t+3;  //  返回对每个元素进行操作后的新的数组
+// });
+// alert(result);
+
+// var arr = new Array();
+// arr = [1,2,3,4,5,6,7,8,9,10];
+// var sum = arr.reduce(function (p1, p2, number, ts) { return p1+p2; });
+// alert(sum);
+
+
+// 使用 call() 或者 apply() 函数来扩充作用域
+// // apply 与call 的区别就在apply的参数有数组传递
+// function sum(num1,num2) {
+//     return num1 + num2;
+// }
+// function callsun(num1,num2) {
+//     return sum.call(this,num1,num2); // 这里的this 为什么是必须的？ call(thisObj，Object)， call 的传参方式为逗号逐个传入，首先要
+//     //指定
+// }
+// alert(callsun(10,10));
+
+// window.color = "red";
+// var o = { color: "blue"};
+// function sayColor() {
+//     alert(this.color);
+//
+// }
+// var saycolor = sayColor.bind(o);
+// saycolor();
+
+// 使用  instanceof 判断数据类型
+// a = true;
+// var b = new Boolean(true);
+// alert(b.valueOf());
+// alert(b instanceof Boolean);
+// alert(typeof a );
+//  // 直接赋值与通过对象赋值效果不同,对象本身的值 与对象valueOf 的值不同
+
+var numberObject  = new Number(5000000000);
+// alert(numberObject.toString(8));
+// alert(numberObject.toString(2));
+// alert(numberObject.toString(16)); // 进制转换
+
+alert(numberObject.toFixed(20)); // 最多保存20 位 小数
