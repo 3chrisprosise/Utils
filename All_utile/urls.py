@@ -38,4 +38,7 @@ urlpatterns = [
     #
     # url(r'^Date$', views.CreatDate)
 
+    url(r'^reciver$', views.MessageRecever),
+    url(r'^sender$', views.MessagSender),
+
 ]

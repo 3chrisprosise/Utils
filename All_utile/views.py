@@ -124,3 +124,11 @@ def testjs(req):
 
 def Ckeditor(req):
     return render_to_response('Ckeditor.html')
+
+
+# Html间传递参数
+def MessagSender(req):
+    return render(req, 'sender.html')
+
+def MessageRecever(req):
+    return render(req, 'reciver.html')

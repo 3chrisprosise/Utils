@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title> demo </title>
+    <meta name="Author" content="xugang" />
+    <script src="/static/js/ReceiveMessage.js"></script>
+</head>
+<body>
+<script>
+    localStorage['foo'] = 'bar';
+    window.addEventListener('storage', function(e) {
+
+    console.log(e.key + "'s value is changed from '" +
+        e.oldValue + "' to '" + e.newValue + "' by " + e.url);
+
+    }, false);
+
+</script>
+</body>
+</html>

@@ -338,9 +338,56 @@ var str = 'http://127.0.0.1:8000/all/testjs';
 // alert(typeof a );
 //  // 直接赋值与通过对象赋值效果不同,对象本身的值 与对象valueOf 的值不同
 
-var numberObject  = new Number(5000000000);
-// alert(numberObject.toString(8));
-// alert(numberObject.toString(2));
-// alert(numberObject.toString(16)); // 进制转换
+// var numberObject  = new Number(5000000000);
+// // alert(numberObject.toString(8));
+// // alert(numberObject.toString(2));
+// // alert(numberObject.toString(16)); // 进制转换
+//
+// alert(numberObject.toFixed(20)); // 最多保存20 位 小数
 
-alert(numberObject.toFixed(20)); // 最多保存20 位 小数
+// 字符串拼接
+// var str1 = "Hello";
+// var str2 = "World";
+// var str3 = str2.concat(str1);
+// alert(str3);// 此时的str1 和str2 并没有改变
+
+// var stringValue = "Hello World";
+// // alert(stringValue.slice(3,7)); // slice 与 substring 返回都是两个索引值之间的字符串
+// // alert(stringValue.substring(3,7)); // 参数中如果包换负数值，则会被转换为0 仅仅是这个函数
+// // alert(stringValue.substr(3,7));  // 第二个参数指定返回的字符个数
+//
+// // 位置索引
+// alert(stringValue.indexOf("W"));
+// alert(stringValue.lastIndexOf("l"));
+
+// var stringValue = "            Hello World    ";
+// var newstr = stringValue.trim();
+// alert(newstr); //删除字符串前后的空格
+// newstr = stringValue.toUpperCase(); // 转换为大写
+// alert(newstr);
+// newstr = stringValue.toLowerCase();
+// alert(newstr);
+// newstr = stringValue.toLocaleLowerCase();
+// alert(newstr);
+// newstr = stringValue.toLocaleUpperCase();  // 在土耳其或者一些特殊国家的使用
+// alert(newstr);
+
+// var text = "cat,bat,sat,fat";
+// // var pattern = /.at/;
+// // var mathes = text.match(pattern);  // 返回匹配的第一个字符串
+// // alert(mathes[0]);
+// var result = text.replace(/at/g, 'ont');  // js 中的正则表达式与普通的正则表达式稍有不同
+// alert(result);
+
+//  javascript 正则表达式匹配训练
+
+// i  大小写不敏感
+// var str1 = "Hello World";
+// str1 = str1.replace(/hello/i, "Chris");
+// alert(str1);
+
+// g  全局匹配
+var str1 = "Hello World";
+str1 = str1.replace(/l/g,"nn");
+alert(str1);
+
