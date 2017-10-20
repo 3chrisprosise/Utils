@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import base64
-from django.shortcuts import render, Http404, HttpResponse,render_to_response
+from django.shortcuts import render, Http404, HttpResponse,render_to_response,reverse
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext, loader
 # from .models import Article, Question,Article1,Publication
@@ -132,3 +132,5 @@ def MessagSender(req):
 
 def MessageRecever(req):
     return render(req, 'reciver.html')
+
+# FileUploader
